@@ -48,3 +48,13 @@ export async function fetchNoteById(noteId: string): Promise<Note> {
   });
   return res.data;
 }
+
+export async function fetchNotesByTag(tag?: string) {
+  const res = await axios.get("/notes", {
+    params: tag ? { tag } : {},
+    headers: {
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
+    },
+  });
+  return res.data;
+}
