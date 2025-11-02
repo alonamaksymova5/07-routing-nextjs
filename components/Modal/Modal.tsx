@@ -1,44 +1,69 @@
-import { createPortal } from "react-dom";
-import { useEffect } from "react";
-import css from "./Modal.module.css";
+"use client";
 
-interface ModalProps {
-  onClose: () => void;
+import { useRouter } from "next/navigation";
+
+type Props = {
   children: React.ReactNode;
-}
+};
 
-export default function Modal({ onClose, children }: ModalProps) {
-  const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (event.target === event.currentTarget) {
-      onClose();
-    }
-  };
+const Modal = ({ children }: Props) => {
+  const router = useRouter();
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    };
+  const close = () => router.back();
 
-    document.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
-    };
-  }, [onClose]);
-
-  return createPortal(
-    <div
-      className={css.backdrop}
-      role="dialog"
-      aria-modal="true"
-      onClick={handleBackdropClick}
-    >
-      <div className={css.modal}>{children}</div>
-    </div>,
-    document.body
+  return (
+    <div>
+      <div>
+        {children}
+        <button onClick={close}>Close</button>
+      </div>
+    </div>
   );
-}
+};
+
+export default Modal;
+
+// import { createPortal } from "react-dom";
+// import { useEffect } from "react";
+// import css from "./Modal.module.css";
+
+// interface ModalProps {
+//   onClose: () => void;
+//   children: React.ReactNode;
+// }
+
+// export default function Modal({ onClose, children }: ModalProps) {
+//   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
+//     if (event.target === event.currentTarget) {
+//       onClose();
+//     }
+//   };
+
+//   useEffect(() => {
+//     const handleKeyDown = (e: KeyboardEvent) => {
+//       if (e.key === "Escape") {
+//         onClose();
+//       }
+//     };
+
+//     document.addEventListener("keydown", handleKeyDown);
+//     document.body.style.overflow = "hidden";
+
+//     return () => {
+//       document.removeEventListener("keydown", handleKeyDown);
+//       document.body.style.overflow = "";
+//     };
+//   }, [onClose]);
+
+//   return createPortal(
+//     <div
+//       className={css.backdrop}
+//       role="dialog"
+//       aria-modal="true"
+//       onClick={handleBackdropClick}
+//     >
+//       <div className={css.modal}>{children}</div>
+//     </div>,
+//     document.body
+//   );
+// }
