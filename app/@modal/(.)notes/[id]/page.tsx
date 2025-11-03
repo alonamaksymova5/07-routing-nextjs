@@ -1,5 +1,5 @@
 import ModalPreview from "./ModalPreview";
-import NotePreviewClient from "./NotePreviewClient";
+import NotePreviewClient from "./NotePreview.client";
 import { fetchNoteById } from "@/lib/api";
 import css from "./NotePreview.module.css";
 
