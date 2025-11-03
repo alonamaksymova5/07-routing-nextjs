@@ -15,5 +15,3 @@ export default async function FilterPage({ params }: FilterPageProps) {
 
   return <NoteList notes={res.notes} />;
 }
-
-//фільтрує і показує потрібні нотатки

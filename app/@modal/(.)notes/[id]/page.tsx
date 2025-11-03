@@ -1,12 +1,13 @@
-import { fetchNoteById } from "@/lib/api";
 import Modal from "@/components/Modal/Modal";
+import NotePreviewClient from "./NotePreviewClient";
+import { fetchNoteById } from "@/lib/api";
 import css from "./NotePreview.module.css";
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string }>; //чому не треба проміс?
 };
 
-const NotePreview = async ({ params }: Props) => {
+export default async function NotePreview({ params }: Props) {
   const { id } = await params;
   const note = await fetchNoteById(id);
 
@@ -20,11 +21,9 @@ const NotePreview = async ({ params }: Props) => {
           <p className={css.content}>{note.content}</p>
           <p className={css.date}>{note.createdAt}</p>
           <p className={css.tag}>{note.tag}</p>
-          <button className={css.backBtn}>Go back</button>
+          <NotePreviewClient />
         </div>
       </div>
     </Modal>
   );
-};
-
-export default NotePreview;
+}

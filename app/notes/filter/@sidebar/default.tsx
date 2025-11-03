@@ -24,4 +24,4 @@ export default function SidebarNotes() {
   );
 }
 
-//компонент що показує список тегів
+
