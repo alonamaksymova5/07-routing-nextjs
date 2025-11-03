@@ -54,3 +54,13 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.text-loading {
+  margin: 0 auto;
+  color: rgb(77, 157, 233);
+}
+
+.text-error {
+  margin: 0 auto;
+  color: red;
+}

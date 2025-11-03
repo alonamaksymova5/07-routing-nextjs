@@ -1,10 +1,10 @@
-import Modal from "@/components/Modal/Modal";
+import ModalPreview from "./ModalPreview";
 import NotePreviewClient from "./NotePreviewClient";
 import { fetchNoteById } from "@/lib/api";
 import css from "./NotePreview.module.css";
 
 type Props = {
-  params: Promise<{ id: string }>; //чому не треба проміс?
+  params: Promise<{ id: string }>;
 };
 
 export default async function NotePreview({ params }: Props) {
@@ -12,7 +12,7 @@ export default async function NotePreview({ params }: Props) {
   const note = await fetchNoteById(id);
 
   return (
-    <Modal>
+    <ModalPreview>
       <div className={css.container}>
         <div className={css.item}>
           <div className={css.header}>
@@ -24,6 +24,6 @@ export default async function NotePreview({ params }: Props) {
           <NotePreviewClient />
         </div>
       </div>
-    </Modal>
+    </ModalPreview>
   );
 }
