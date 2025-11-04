@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { NewNote, Note } from "../types/note";
+import { ALL_NOTES } from "./constants";
 
 interface NotesResponse {
   notes: Note[];
@@ -11,14 +12,27 @@ axios.defaults.baseURL = "https://notehub-public.goit.study/api";
 export async function fetchNotes(
   page: number,
   perPage: number,
-  search: string
+  search: string,
+  tag?: string
 ): Promise<NotesResponse> {
+  const params: Record<string, string | number> = {
+    page,
+    perPage,
+    search,
+  };
+
+  if (tag && tag !== "all" && tag !== ALL_NOTES) {
+    params.tag = tag;
+  }
+
   const res = await axios.get<NotesResponse>("/notes", {
-    params: { page, perPage, search },
+    params,
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
     },
   });
+  console.log("Response data for", tag, res.data);
+
   return res.data;
 }
 
@@ -42,16 +56,6 @@ export async function deleteNote(noteId: string): Promise<Note> {
 
 export async function fetchNoteById(noteId: string): Promise<Note> {
   const res = await axios.get<Note>(`/notes/${noteId}`, {
-    headers: {
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
-    },
-  });
-  return res.data;
-}
-
-export async function fetchNotesByTag(tag?: string) {
-  const res = await axios.get("/notes", {
-    params: tag ? { tag } : {},
     headers: {
       Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
     },
