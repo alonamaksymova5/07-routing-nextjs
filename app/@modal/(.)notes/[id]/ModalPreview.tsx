@@ -2,14 +2,17 @@
 
 import css from "./ModalPreview.module.css";
 
-type Props = {
+type ModalPreviewProps = {
   children: React.ReactNode;
+  onClose: () => void;
 };
 
-export default function Modal({ children }: Props) {
+export default function ModalPreview({ children, onClose }: ModalPreviewProps) {
   return (
-    <div className={css.backdrop}>
-      <div className={css.modal}>{children}</div>
+    <div className={css.backdrop} onClick={onClose}>
+      <div className={css.modal} onClick={(e) => e.stopPropagation()}>
+        {children}
+      </div>
     </div>
   );
 }

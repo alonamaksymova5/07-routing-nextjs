@@ -14,7 +14,7 @@ import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import { fetchNotes } from "@/lib/api";
 import css from "./NotesClient.module.css";
 
-const PER_PAGE = 12;
+const PER_PAGE = 9;
 
 interface NotesClientProps {
   tag: string;
